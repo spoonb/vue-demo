@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vue-demo</title>
+        <script type="text/javascript" src="../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <!-- 
+                完整的单向绑定
+                {{ url }} 插值语法
+            -->
+            <a v-bind:href="url" target="_blank">{{ url }}</a>
+            <!-- 简写的单向绑定 -->
+            <!-- <a :href="url" target="_blank">{{ url }}</a> -->
+
+            <!-- 完整的双向绑定 -->
+            <br/>姓：<input v-model:value="first_name"/>
+            <br/>名：<input v-model:value="last_name"/>
+            <!-- 简写的双向绑定 -->
+            <!-- <br/>名：<input v-model="last_name"/> -->
+        </div>
+        <script type="text/javascript">
+            const vm = new Vue({
+                el:"#root",
+                data: {
+                    first_name: "自性",
+                    last_name: "本空",
+                    url: "https://www.baidu.com"
+                }
+            })
+            // vm.$mount("#root") // vue能挂在到#root的本质是调用了这个函数
+        </script>
+    </body>
+</html>
