@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vue-demo</title>
+        <script type="text/javascript" src="../../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <a v-bind:href="url" target="_blank">{{ url }}</a>
+            <br/>姓：<input v-model:value="first_name"/>
+            <br/>名：<input v-model:value="last_name"/>
+            <br/><Button v-on:click="click01">普通用法</Button>
+            <br/><Button v-on:click="click02('02')">错误用法</Button>
+            <br/><Button v-on:click="click03('03', $event)">通过参数传递event</Button>
+            <br/><Button v-on:click="click04('04')">闭包获取全局event</Button>
+            <br/><Button v-on:click="click05('05')">直接获取全局event</Button>
+        </div>
+        <script type="text/javascript">
+            const vm = new Vue({
+                el:"#root",
+                data: {
+                    first_name: "自性",
+                    last_name: "本空",
+                    url: "https://www.baidu.com"
+                },
+                methods: {
+                    click01: function(event) {
+                        console.log(this.first_name + '-' + this.last_name, event)
+                    },
+                    click02: function(arg) {
+                        console.log(this.first_name + '-' + this.last_name, arg, $event) // 这种写法并不能获得当前事件的$event对象
+                    },
+                    click03: function(arg, event) {
+                        console.log(this.first_name + '-' + this.last_name, arg, event)
+                    },
+                    click04: function(arg) {
+                        const func01 = (event) => {
+                            console.log(this.first_name + '-' + this.last_name, arg, event) // 由于外部函数没有定义event变量，所以此处event使用了全局事件对象
+                        }
+                        func01(event)
+                    },
+                    click05: function(arg) {
+                        console.log(this.first_name + '-' + this.last_name, arg, event) // event是全局事件对象，来自window
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
