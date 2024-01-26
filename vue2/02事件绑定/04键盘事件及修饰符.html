@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vue-demo</title>
+        <script type="text/javascript" src="../../js/vue.js"></script>
+        <style>
+            .first {
+                background-color: bisque;
+            }
+            .second {
+                background-color: aquamarine;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root" class="first" @click="parent">
+            <!-- 单纯冒泡 -->
+            <div><button @click="single" value="">single</button></div>
+            <!-- 
+                事件冒泡在配置有stop事件修饰符的元素停止 
+                输出：single => stop
+            -->
+            <div>
+                <div class="second" @click.stop="stop">
+                    <button @click="single">stop</button>
+                </div>
+            </div>
+            <div><a href="https://www.google.com" @click.prevent="prevent">prevent</a></div>
+            <!-- 
+                从冒泡阶段触发事件函数变为在捕获阶段触发 
+                输出：capture => single => parent
+            -->
+            <div>
+                <div class="second" @click.capture="capture">
+                    <button @click="single">capture</button>
+                </div>
+            </div>
+            <!-- 
+                只有当前元素可以触发配置有self事件修饰符的事件函数 
+                通过冒泡触发父元素被禁止
+            -->
+            <div>
+                <div class="second" @click.self="self">
+                    <button @click="single">self</button>
+                </div>
+            </div>
+            <!-- 事件只触发一次，触发后事件函数被移除 -->
+            <div><button @click.once="once">once</button></div>
+            <!-- 执行一次后事件解绑，再次点击则再次触发冒泡 -->
+            <div><button @click.once.stop="once">once-stop</button></div>
+        </div>
+        <script type="text/javascript">
+            const vm = new Vue({
+                el:"#root",
+                methods: {
+                    parent() {
+                        console.log("parent")
+                    },
+                    single() {
+                        console.log("single")
+                    },
+                    stop() {
+                        console.log("stop")
+                    },
+                    prevent() {
+                        console.log("prevent")
+                    },
+                    capture() {
+                        console.log("capture")
+                    },
+                    self() {
+                        console.log("self")
+                    },
+                    once() {
+                        console.log("once")
+                    },
+                    scroll() {
+                        for (let i = 0; i < 1000; i++) {
+                            console.log("number => ", i)
+                        }
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

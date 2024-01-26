@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vue-demo</title>
+        <script type="text/javascript" src="../../js/vue.js"></script>
+        <style>
+            .first {
+                background-color: bisque;
+                height: 150px;
+                width: 200px;
+                overflow: auto;
+            }
+            .second {
+                background-color: aquamarine;
+                height: 300px;
+                width: 150px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root">
+            <!-- 在pc上，当滚动鼠标滚轮后触发wheel事件，调用事件函数后回调事件默认行为(更新滚动条位置) -->
+            <div class="first" @wheel="wheel">
+                <div class="second">
+                    no passive
+                </div>
+            </div>
+            <!-- wheel的事件默认行为不再等待事件函数之后后回调，与事件函数的执行异步，直接触发默认行为 -->
+            <div class="first" @wheel.passive="wheel">
+                <div class="second">
+                    passive
+                </div>
+            </div>
+            <!-- scroll事件是因为滚动条移动才触发的，所以看不出是事件函数执行后才回调事件的默认行为 -->
+            <div class="first" @scroll="scroll">
+                <div class="second">
+                    passive
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            const vm = new Vue({
+                el:"#root",
+                methods: {
+                    scroll() {
+                        for (let i = 0; i < 100000; i++) {
+                            console.log("number => ", i)
+                        }
+                    },
+                    wheel() {
+                        for (let i = 0; i < 100000; i++) {
+                            console.log("number => ", i)
+                        }
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
