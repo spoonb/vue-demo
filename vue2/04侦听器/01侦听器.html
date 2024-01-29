@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>vue-demo</title>
+        <script type="text/javascript" src="../../js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <a v-bind:href="url" target="_blank">{{ url }}</a>
+            <br/>姓：<input v-model:value="first_name"/>
+            <br/>名：<input v-model:value="last_name"/>
+            <br/><span>{{ full_name }}</span>
+        </div>
+        <script type="text/javascript">
+            const vm = new Vue({
+                el:"#root",
+                data: {
+                    first_name: "自性",
+                    last_name: "本空",
+                    full_name: "自性本空",
+                    url: "https://www.baidu.com"
+                },
+                /*
+                 侦听器也可以做到和计算属性一样的功能，但有所不同。
+                 侦听器支持异步，而计算属性不支持异步。
+                 原因在于计算属性的计算结果最终会写在函数的return中，而侦听器没有return
+                 */
+                watch: {
+                    first_name: function() {
+                        this.full_name = this.first_name + this.last_name
+                    },
+                    last_name: function() {
+                        this.full_name = this.first_name + this.last_name
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
