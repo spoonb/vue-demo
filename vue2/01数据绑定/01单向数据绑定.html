@@ -23,35 +23,38 @@
         <script type="text/javascript">
             const vm = new Vue({
                 el:"#root",
+                /* 
+                 简写形式
+                 */
                 // data: {
                 //     first_name: "自性",
                 //     last_name: "本空",
                 //     url: "https://www.baidu.com"
                 // }
-                data() {
+
+                /* 
+                 对象形式
+                 */
+                // data: {
+                //     return {
+                //         first_name: "自性",
+                //         last_name: "本空",
+                //         url: "https://www.baidu.com"
+                //     }
+                // }
+
+                /* 
+                 函数形式
+                 推荐的写法
+                 推荐原因：当data被定义在组件中时，组件可能被用来创建多个实例，如果定义为简写或者对象形式则多个实例共用一个data对象这就可能导致一些问题
+                 */
+                data: function() {
                     return {
                         first_name: "自性",
                         last_name: "本空",
                         url: "https://www.baidu.com"
                     }
-                },
-                mounted() {
-                    Object.defineProperties(this.$data, {
-                            first_name: {
-                                get: () => {
-                                    console.log(this.$data.first_name)
-                                    return this.$data.first_name
-                                }
-                            },
-                            last_name: {
-                                get: () => {
-                                    console.log(this.$data.last_name)
-                                    return this.$data.last_name
-                                }
-                            }
-                        }
-                    )
-                },
+                }
             })
             // vm.$mount("#root") // vue能挂在到#root的本质是调用了这个函数
         </script>
