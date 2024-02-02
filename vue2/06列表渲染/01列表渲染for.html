@@ -8,11 +8,11 @@
 
 <body>
     <div id="root">
-        <ui>
+        <ul>
             <li v-for="(stu, index) in students" :keys="index">
                 姓名：{{ stu.name }} 年龄：{{ stu.age }} 性别：{{ stu.sex }}
             </li>
-        </ui>
+        </ul>
     </div>
     <script type="text/javascript">
         const vm = new Vue({
