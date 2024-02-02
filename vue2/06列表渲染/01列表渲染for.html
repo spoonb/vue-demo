@@ -9,7 +9,7 @@
 <body>
     <div id="root">
         <ul>
-            <li v-for="(stu, index) in students" :keys="index">
+            <li v-for="(stu, index) in students" :key="index">
                 姓名：{{ stu.name }} 年龄：{{ stu.age }} 性别：{{ stu.sex }}
             </li>
         </ul>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>vue-demo</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <button @click.once="addMember">增加老六</button>
+        <ul>
+            <!-- 
+                现象：按钮点下后，文本和input发生了错位
+
+                直接原因:key中使用了index，并在列表前端增加新元素
+                
+                根本原因：由于元素的增加使得第一个元素从张三变成了老六，而vue是通过比较变更前后的虚拟dom
+                来判断真实dom的哪个部分需要重新渲染的，如下。
+                index=0 <li>姓名：张三 年龄：28 性别：男 <input /></li>   <===>   index=0 <li>姓名：老六 年龄：8 性别：女 <input /></li>
+                左边修改前，右边修改后
+                在虚拟dom中，左右对比
+                元素节点相同 => 不更改，尤其要注意input元素，由于不更改，所以沿用修改前的input
+                文本节点不同 => 更改
+                <li>姓名：老六 年龄：8 性别：女 <input /></li> 注释：input为修改前
+                这也就是为什么老六的input里面写着张三的名字。
+                其他位置的input错位同理。
+             -->
+            <li v-for="(stu, index) in students" :key="index">
+                姓名：{{ stu.name }} 年龄：{{ stu.age }} 性别：{{ stu.sex }} <input />
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                students: [
+                    { id: "01", name: "张三", age: "28", sex: "男" },
+                    { id: "02", name: "李四", age: "25", sex: "女" },
+                    { id: "03", name: "王五", age: "21", sex: "女" },
+                    { id: "04", name: "赵六", age: "32", sex: "男" },
+                ]
+            },
+            methods: {
+                addMember() {
+                    this.students.splice(0, 0, { id: "05", name: "老六", age: "8", sex: "女" })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
