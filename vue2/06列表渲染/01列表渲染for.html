@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>vue-demo</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <ui>
+            <li v-for="(stu, index) in students" :keys="index">
+                姓名：{{ stu.name }} 年龄：{{ stu.age }} 性别：{{ stu.sex }}
+            </li>
+        </ui>
+    </div>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                students: [
+                    {id: "01", name: "张三", age: "28", sex: "男"},
+                    {id: "02", name: "李四", age: "25", sex: "女"},
+                    {id: "03", name: "王五", age: "21", sex: "女"},
+                    {id: "04", name: "赵六", age: "32", sex: "男"},
+                ]
+            }
+        })
+    </script>
+</body>
+
+</html>
