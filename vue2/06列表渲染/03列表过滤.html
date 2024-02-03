@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>vue-demo</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <input placeholder="请输入" v-model="filterKey"><br />
+        <ul>
+            <!-- 
+                过滤的几种方式：
+                1. 通过访问后台模糊查询DB => 效率太低，不推荐
+                2. 通过filter修改students => 原始数据被破坏导致数据无法重用，过滤功能成了一次性的，别用(这根本不是解决方案)
+                3. 通过filter获取模糊查询后的数据, 并将迭代的students更改为该数据 => 就是这个，与计算属性完美契合
+
+                最终我们在1和3中选择了3
+             -->
+            <li v-for="(stu, index) in studentsFilter" :key="index">
+                姓名：{{ stu.name }} 年龄：{{ stu.age }} 性别：{{ stu.sex }}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                filterKey: "",
+                students: [
+                    { id: "01", name: "周杰伦", age: "28", sex: "男" },
+                    { id: "02", name: "马冬梅", age: "25", sex: "女" },
+                    { id: "03", name: "周冬雨", age: "21", sex: "女" },
+                    { id: "04", name: "温兆伦", age: "32", sex: "男" },
+                ]
+            },
+            computed: {
+                studentsFilter() {
+                    return this.students.filter(e => e.name.includes(this.filterKey))
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

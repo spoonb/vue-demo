@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>vue-demo</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript">
+        let data = {
+            name: "张三",
+            address: "东京"
+        }
+
+        const keys = Object.keys(data)
+        // keys.forEach((k) => {
+        //     // 因为此处的data和外部的data是同一个对象，所以递归调用栈溢出
+        //     Object.defineProperty(data, k, {
+        //         set(val) {
+        //             data[k] = val
+        //         },
+        //         get() {
+        //             return data[k]
+        //         }
+        //     })
+        // })
+        function Observer(obj) {
+            const keys = Object.keys(obj)
+            keys.forEach((k) => {
+                Object.defineProperty(this, k, {
+                    enumerable: true,
+                    set(val) {
+                        obj[k] = val
+                    },
+                    get() {
+                        return obj[k]
+                    }
+                })
+            })
+        }
+        const vm = {}
+        vm._data = data = new Observer(data)
+    </script>
+</body>
+
+</html>

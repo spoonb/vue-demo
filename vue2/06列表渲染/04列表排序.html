@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>vue-demo</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <input placeholder="请输入" v-model="filterKey">
+        <button  @click="sortType = -1">年龄降序</button>
+        <button  @click="sortType = 0">年龄原序</button>
+        <button  @click="sortType = 1">年龄升序</button>
+        <br />
+        <ul>
+            <li v-for="(stu, index) in filterStudents" :key="index">
+                姓名：{{ stu.name }} 年龄：{{ stu.age }} 性别：{{ stu.sex }}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                sortType: 0, // -1：降序，0：原序，1：升序
+                filterKey: "",
+                students: [
+                    { id: "04", name: "周杰伦", age: "28", sex: "男" },
+                    { id: "03", name: "马冬梅", age: "25", sex: "女" },
+                    { id: "02", name: "周冬雨", age: "21", sex: "女" },
+                    { id: "01", name: "温兆伦", age: "32", sex: "男" },
+                ]
+            },
+            computed: {
+                filterStudents() {
+                    return this.students.filter(e => e.name.includes(this.filterKey)).sort((e1, e2) => {
+                        switch(this.sortType) {
+                            case -1: 
+                                return e2.age - e1.age
+                            case 1:
+                                return e1.age - e2.age
+                        }
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>vue-demo</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <!-- 
+            现象：data中的数据修改成功，但是页面没有改变
+
+            直接原因：对于数组元素的直接赋值行为不会触发响应式
+
+            根本原因：由于vue2的响应式是基于Object.defineProperty(target, field_name, {option})
+            数组添加元素不会调用Object.defineProperty函数，所以对于各个元素没有getter和setter，
+            尤其是setter，这是vue2数据代理的核心，通过在setter里更新虚拟dom再诱发真实dom的更新
+            没有setter就不能通过直接赋值触发响应式
+
+            解决方案：虽然vue2中，对于数组的各个元素直接赋值无法触发响应式，但是vue2对于Array中的
+            各种API函数有包装，使用这些API函数就可以正常的触发响应式
+         -->
+        <button @click="modify">增加data</button>
+        <ul>
+            <li v-for="(field, index) in student" :key="index">
+                {{ field }}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                name: "xxx学院",
+                address: "xxxxxx",
+                student: { 
+                    id: "04", 
+                    name: "周杰伦", 
+                    age: "28", 
+                    sex: "男" 
+                }
+            },
+            methods: {
+                modify() {
+                    // this.student.hobby = "打游戏" // 失败
+                    // 成功触发响应式一
+                    // Vue.set(this.student, "hobby", "打游戏")
+                    // 成功触发响应式二
+                    // this.$set(this.student, "hobby", "打游戏")
+                    // 虽然使用了set但是失败，set不可以给this或者this._data追加属性
+                    // Vue.set(this, "teacher", { id: "01", name: "温兆伦", age: "48", sex: "男" })
+                    Vue.set(this._data, "teacher", { id: "01", name: "温兆伦", age: "48", sex: "男" })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
