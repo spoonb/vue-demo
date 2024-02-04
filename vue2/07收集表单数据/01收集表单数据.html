@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>vue-demo</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+
+<body>
+    
+    <!-- 
+        <input type="text">：v-model收集的是value，用户输入的就是value
+        <input type="radio">：v-model收集的是value，必须配置value
+        <input type="checkbox">：
+            1. 没有配置value，收集的是checked
+            2. 配置value
+                (1) v-model绑定的是非数组，收集的是checked
+                (2) v-model绑定的是数组，收集的是value值组成的数组
+        <input type="text">：v-model收集的是value，用户输入的就是value
+        <input type="text">：v-model收集的是value，用户输入的就是value
+     -->
+
+    <div id="root">
+        <form @submit.prevent="log">
+            账号：<input type="text" v-model="userInfo.account"> <br /><br />
+            密码：<input type="password" v-model="userInfo.password"> <br /><br />
+            年龄：<input type="number" v-model.number="userInfo.age"> <br /><br />
+            性别：
+                <input type="radio" name="sex" v-model="userInfo.sex" value="male">男 
+                <input type="radio" name="sex" v-model="userInfo.sex" value="female">女 
+                <input type="radio" name="sex" v-model="userInfo.sex" value="secret">保密 <br /><br />
+            爱好：
+                <input type="checkbox" v-model="userInfo.hobby" value="抽烟">抽烟 
+                <input type="checkbox" v-model="userInfo.hobby" value="喝酒">喝酒 
+                <input type="checkbox" v-model="userInfo.hobby" value="烫头">烫头 <br /><br />
+            所在城市：
+                <select v-model="userInfo.city">
+                    <option value="">==请选择==</option>
+                    <option value="beijing">北京</option>
+                    <option value="shanghai">上海</option>
+                    <option value="nanchang">南昌</option>
+                    <option value="dongjing">东京</option>
+                </select> <br /><br />
+            其他：
+                <textarea cols="30" rows="10" v-model.lazy="userInfo.other"></textarea> <br /><br />
+            <input type="checkbox" v-model="userInfo.agree">阅读并接受7
+                <a href="https://weixin.qq.com/agreement?lang=zh_CN">《用户协议》</a> 
+            <br /><br />
+            <button :disabled="!userInfo.agree">提交</button>
+        </form>
+    </div>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                userInfo: {
+                    account: "",
+                    password: "",
+                    age: "",
+                    sex: "secret",
+                    hobby: [],
+                    city: "",
+                    other: "",
+                    agree: false
+                }
+            },
+            methods: {
+                log() {
+                    console.log(JSON.stringify(this.userInfo))
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
