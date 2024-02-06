@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>vue-demo</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <div>
+            <br /><button @click="loop">切换</button>
+            <br />姓：<input v-model:value="first_name" />
+            <br />名：<input v-model:value="last_name" />
+            
+            <template v-if="flag === 0">
+                <br />全名：<span>{{ full_name }}</span>
+            </template>
+
+            <template v-else-if="flag === 1">
+                <br />全名：<span>{{ first_name }}</span>
+            </template>
+
+            <template v-else-if="flag === 2">
+                <br />全名：<span>{{ last_name }}</span>
+            </template>
+
+            <template v-else>
+                <br />全名：<span>null</span>
+            </template>
+        </div>
+    </div>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                first_name: "张",
+                last_name: "三",
+                flag: 0
+            },
+            computed: {
+                full_name() {
+                    return this.first_name + this.last_name
+                }
+            },
+            methods: {
+                loop() {
+                    this.flag = ++this.flag % 4
+                    this.$forceUpdate()
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

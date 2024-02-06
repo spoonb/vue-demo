@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>vue-demo</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <h1>root</h1>
+    <div id="root">
+        <h3>{{ msg }}</h3>
+        <!-- 过滤器就像Linux命令一样通过配合管道符使用 -->
+        <h3>{{ msg | to4Digits }}</h3>
+    </div>
+    <br /><br />
+    <h1>root1</h1>
+    <div id="root1">
+        <h3>{{ msg }}</h3>
+        <!-- 无法使用定义在其他vue实例中的过滤器 -->
+        <h3>{{ msg | to4Digits }}</h3>
+        <!-- 使用全局过滤器 -->
+        <h3>{{ msg | to4DigitsGlobal }}</h3>
+        <!-- 过滤器可以连续使用 -->
+        <h3>{{ msg | to4DigitsGlobal | uppercase }}</h3>
+        <!-- 过滤器能在v-bind中使用 -->
+        <h3 :msg="msg | to4DigitsGlobal | uppercase">{{ msg }}</h3>
+        <!-- 过滤器只能在插值语法和v-bind中使用 -->
+        <h3 v-text="msg | to4DigitsGlobal | uppercase"></h3>
+    </div>
+
+    <script type="text/javascript">
+        Vue.filter("to4DigitsGlobal", function (val) {
+            return val.substring(0, 4)
+        })
+        Vue.filter("uppercase", function (val) {
+            return val.toUpperCase()
+        })
+
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                msg: "hello world"
+            },
+            filters: {
+                to4Digits(val) {
+                    return val.substring(0, 4)
+                }
+            }
+        })
+
+        const vm1 = new Vue({
+            el: "#root1",
+            data: {
+                msg: "hello world"
+            }
+        })
+    </script>
+</body>
+
+</html>
