@@ -3,7 +3,7 @@
 
 <head>
     <title>vue-demo</title>
-    <script type="text/javascript" src="../../js/vue.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
     <style>
 
@@ -26,22 +26,31 @@
 
         msg：<input type="text" v-model="msg">
 
+        <!-- 在标签中添加文本节点 -->
         <h2>v-text</h2>
         <h3>{{msg}}</h3>
         <h3 v-text="msg"></h3>
 
+        <!-- 在标签中添加html代码 -->
         <h2>v-html</h2>
         <div v-html="html"></div>
 
-        <h2>v-slot</h2>
-        <div v-pre>{{msg}}</div>
-
+        <!-- 不解析当前节点 -->
         <h2>v-pre</h2>
         <div v-pre>{{msg}}</div>
 
+        <!-- 
+            在页面加载完成之前给标签添加v-cloak样式
+            页面加载完成时将移除v-cloak添加的样式
+            通过定义属性选择器，实现上述用法
+            [v-cloak] {
+                ...
+            }
+        -->
         <h2>v-cloak</h2>
         <div v-cloak>{{msg}}</div>
 
+        <!-- 节点只渲染一次 -->
         <h2>v-once</h2>
         <div v-once>{{msg}}</div>
 
@@ -54,12 +63,7 @@
             data: {
                 msg: "hello world",
                 html: "<h3>msg</h3>"
-            },
-            created() {
-                setTimeout(() => {
-                    this.msg = "Hello World"
-                }, 3000)
-            },
+            }
         })
 
     </script>
