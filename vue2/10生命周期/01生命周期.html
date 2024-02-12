@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>10生命周期</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+
+<body>
+
+
+    <div id="root">
+        <h2 :style="{opacity}">生命如风中残烛</h2>
+    </div>
+
+    <script type="text/javascript">
+
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                opacity: 1
+            },
+            methods: {
+                method() {
+                    // ...
+                }
+            },
+            computed: {
+                param() {
+                    // ...
+                }
+            },
+            watch: {
+                opacity() {
+                    // ...
+                }
+            },
+            // 创建阶段
+            // 注入和响应式构成前
+            beforeCreate() {
+                // this中没有_data、method、computed等
+                console.log('beforeCreate', this)
+                debugger
+            },
+            // 注入和响应式构成后
+            created() {
+                console.log('created', this)
+                debugger
+            },
+            // 挂载阶段
+            // 真实dom挂载前
+            beforeMount() {
+                console.log('beforeMount', this)
+                debugger
+            },
+            // 真实dom挂载后
+            mounted() {
+                console.log('mounted', this)
+                this.timer = setInterval(() => {
+                    this.opacity -= 0.01
+                    if (this.opacity <= 0)
+                        this.opacity = 1
+                }, 20)
+                debugger
+            },
+            // 更新阶段
+            // 真实dom更新前
+            beforeUpdate() {
+                console.log('beforeUpdate', this)
+                debugger
+            },
+            // 真实dom更新后
+            updated() {
+                console.log('updated', this)
+                debugger
+            },
+            // 销毁阶段
+            // vm销毁前，在此阶段对于数据的更改都不会触发响应式
+            beforeDestroy() {
+                console.log('beforeDestroy', this)
+                clearInterval(this.timer)
+                debugger
+            },
+            // vm销毁后
+            destroyed() {
+                console.log('destroyed', this)
+                debugger
+            }
+        })
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>11非单文件组件</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="root">
+        <!-- 
+            3. 使用组件，此时才会创建真正的组件实例，且每写一个<school></school>
+            就会多创建一个独立的school组件实例。
+            组件标签的名称与components中定义的key-value中的key相同
+        -->
+        <school></school>
+    </div>
+
+    <script type="text/javascript">
+
+        // 1. 创建组件
+        const school = Vue.extend({
+            /*
+                此名称用在开发者工具中
+                不写这个字段，则开发者工具中使用注册组件时的key作为显示名称
+                这可能导致在开发者组件中出现两个及以上同名但本质不同的组件被显示，增加开发debug的难度
+                所以建议组件定义时最好是由组件定义者提前规定好组件在开发者工具中显示的名称
+            */
+            name: "school", 
+            template: `
+                <div>
+                    <h3>学校名称：{{name}}</h3>
+                    <h3>学校地址：{{address}}</h3>
+                </div>
+            `,
+            data() {
+                return {
+                    name: "新余一中",
+                    address: "江西新余"
+                }
+            }
+        })
+
+        
+        // 2. 注册组件
+        const vm = new Vue({
+            el: "#root",
+            components: {
+                "school": school // 此处key"school"是组件的名称
+            }
+        })
+
+    </script>
+</body>
+
+</html>

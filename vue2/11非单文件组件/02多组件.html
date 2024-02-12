@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>11非单文件组件</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="root">
+        <school></school>
+        <hr>
+        <student></student>
+    </div>
+
+    <script type="text/javascript">
+
+        // 1. 创建组件
+        const school = Vue.extend({
+            template: `
+                <div>
+                    <h3>学校名称：{{name}}</h3>
+                    <h3>学校地址：{{address}}</h3>
+                </div>
+            `,
+            data() {
+                return {
+                    name: "新余一中",
+                    address: "江西新余"
+                }
+            }
+        })
+
+        const student = { // Vue.extend()可以省略
+            template: `
+                <div>
+                    <h3>学生姓名：{{name}}</h3>
+                    <h3>学生年龄：{{age}}</h3>
+                </div>
+            `,
+            data() {
+                return {
+                    name: "张三",
+                    age: 19
+                }
+            }
+        }
+
+        
+        // 2. 注册组件
+        const vm = new Vue({
+            el: "#root",
+            components: {
+                school, // 当key和value相等是可以不需要定义key
+                student
+            }
+        })
+
+    </script>
+</body>
+
+</html>

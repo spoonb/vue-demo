@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>09指令</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+
+<body>
+
+    <!-- 当指令有多个单词组成时，推荐使用kebab-case命名规范 -->
+
+    <div id="root">
+        <h3>number => <span v-text="num"></span></h3>
+        <h3>number * 10 => <span v-big="num"></span></h3>
+        <button @click="num++">num++</button>
+        <input type="text" v-fbig="num">
+    </div>
+
+    <script type="text/javascript">
+
+        // 全局指令
+        Vue.directive(`v-test`, {
+            // 指令与元素绑定成功时
+            bind(el, binding) {
+                el.value = binding.value * 20
+            },
+            // 元素被渲染到页面时
+            inserted(el, binding) {
+                el.focus()
+            },
+            // 指令所在模版被重新解析时
+            update(el, binding) {
+                el.value = binding.value * 20
+                el.focus()
+            }
+        })
+
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                num: 1
+            },
+            directives: {
+                // 相当于下面bind和update两函数的集合
+                big(el, binding) {
+                    el.innerText = binding.value * 10
+                    console.log(this) // 此处this是window，不是vm
+                },
+                fbig: {
+                    // 指令与元素绑定成功时
+                    bind(el, binding) {
+                        el.value = binding.value * 20
+                    },
+                    // 元素首次被渲染到页面时
+                    inserted(el, binding) {
+                        el.focus()
+                    },
+                    // 指令所在模版被重新解析时
+                    update(el, binding) {
+                        el.value = binding.value * 20
+                        el.focus()
+                    }
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

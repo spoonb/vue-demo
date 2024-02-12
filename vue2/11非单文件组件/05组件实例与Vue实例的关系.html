@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>11非单文件组件</title>
+    <script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="root">
+        <school></school>
+        <img src="vue_vuecomponent.png" alt="vue和vuecomponent的内置关系">
+    </div>
+
+    <script type="text/javascript">
+
+        // 1. 创建组件
+        const school = Vue.extend({
+            template: `
+                <div>
+                    <h3>学校名称：{{name}}</h3>
+                    <h3>学校地址：{{address}}</h3>
+                </div>
+            `,
+            data() {
+                return {
+                    name: "新余一中",
+                    address: "江西新余"
+                }
+            },
+            mounted() {
+                console.log("school", this.__proto__) // 重点看看this中__proto__的类型以及其中的内容
+            }
+        })
+
+        // 2. 注册组件
+        new Vue({
+            el: "#root",
+            components: {
+                school
+            },
+            mounted() {
+                console.log("vm", this)
+            }
+        })
+
+    </script>
+</body>
+
+</html>
