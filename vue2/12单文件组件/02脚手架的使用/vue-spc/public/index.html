@@ -2,15 +2,21 @@
 <html lang="">
   <head>
     <meta charset="utf-8">
+    <!-- 将IE的渲染级别提升到最高 -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 移动端，开启视口 -->
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!-- 使用el表达式配置favicon.ico -->
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <!-- 使用el表达式配置favicon.ico -->
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
+    <!-- 当浏览器不支持js时，渲染呈现以下元素 -->
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
+    <!-- vue实例容器 -->
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
