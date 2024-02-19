@@ -1,7 +1,7 @@
 <template>
   <div>
     <input type="text" v-model="value"
-     @keyup.shift.enter.stop="addToDoRecord" />
+     @keyup.enter.stop="addToDoRecord(value)" />
   </div>
 </template>
 
@@ -13,9 +13,7 @@ export default {
       value: "",
     };
   },
-  methods: {
-    addToDoRecord() {},
-  },
+  props: ["addToDoRecord"],
 };
 </script>
 

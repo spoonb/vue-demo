@@ -1,28 +1,22 @@
 <template>
   <li>
     <label>
-      <input type="checkbox"/>
-      <span>{{context}}</span>
+      <input type="checkbox" :checked="todo.completed" @click="toggleCheck(todo.id)" />
+      <span>{{ todo.title }}</span>
     </label>
-    <button @click="del">刪除</button>
+    <button @click="delToDo(todo.id)">刪除</button>
   </li>
 </template>
 
 <script>
 export default {
   name: "ToDoRecord",
-  props: {
-    context: {
-      type: String,
-    },
-  },
-  methods: {
-    del() {
-
-    }
-  }
+  props: ["todo", "toggleCheck", "delToDo"],
 };
 </script>
 
 <style>
+li {
+  list-style: none;
+}
 </style>

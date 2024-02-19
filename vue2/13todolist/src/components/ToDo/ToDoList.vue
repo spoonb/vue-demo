@@ -1,6 +1,12 @@
 <template>
   <ul>
-    <ToDoRecord v-for="(ctx, idx) in contexts" :key="idx" :context="ctx" />
+    <ToDoRecord
+      v-for="todo in todos"
+      :key="todo.id"
+      :todo="todo"
+      :toggleCheck="toggleCheck"
+      :delToDo="delToDo"
+    />
   </ul>
 </template>
 
@@ -12,21 +18,12 @@ export default {
   components: {
     ToDoRecord,
   },
-  data() {
-    return {
-      contexts: ["a", "b"],
-      // contexts: {
-      //   type: Array,
-      // }
-    };
-  },
-  props: {
-    context: {
-      type: String,
-    },
-  },
+  props: ["todos", "toggleCheck", "delToDo"],
 };
 </script>
 
 <style>
+ul {
+  padding-left: 0px;
+}
 </style>
