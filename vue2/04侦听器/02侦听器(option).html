@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>04侦听器</title>
+  <script type="text/javascript" src="../00js/vue.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    <a v-bind:href="url" target="_blank">{{ url }}</a>
+    <br />张三：<input v-model:value="zhangSan.name" />
+    <br />李四：<input v-model:value="liSi.name" />
+  </div>
+  <script type="text/javascript">
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        zhangSan: {
+          name: "张三",
+          age: 18,
+          sex: "男",
+        },
+        liSi: {
+          name: "李四",
+          age: 19,
+          sex: "女",
+        },
+        url: "https://www.baidu.com",
+      },
+      watch: {
+        zhangSan: function (newValue, oldValue) {
+          let newVal = JSON.stringify(newValue)
+          let oldVal = JSON.stringify(oldValue)
+          console.log(oldVal, "=>", newVal)
+        },
+        liSi: {
+          handler(newValue, oldValue) {
+            let newVal = JSON.stringify(newValue)
+            let oldVal = JSON.stringify(oldValue)
+            console.log(oldVal, "=>", newVal)
+          },
+          deep: true, // 深度侦听
+        },
+        url: {
+          handler(newValue, oldValue) {
+            console.log(oldValue, "=>", newValue)
+          },
+          immediate: true, // 在侦听开始之初调用一次handler
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

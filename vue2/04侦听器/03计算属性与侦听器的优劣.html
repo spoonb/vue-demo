@@ -19,15 +19,18 @@
       data: {
         first_name: "张",
         last_name: "三",
-        full_name: "张三",
         url: "https://www.baidu.com"
       },
+      // 计算属性的核心是返回值，函数的返回值是同步的，没法异步
+      computed: {
+        full_name() {
+          return this.first_name + this.last_name
+        }
+      },
+      // 相对于计算属性watch可以很自然的使用异步
       watch: {
-        first_name: function () {
-          this.full_name = this.first_name + this.last_name
-        },
-        last_name: function () {
-          this.full_name = this.first_name + this.last_name
+        full_name: function () {
+          setTimeout(() => console.log('full_name更新完成'), 1000)
         }
       }
     })
