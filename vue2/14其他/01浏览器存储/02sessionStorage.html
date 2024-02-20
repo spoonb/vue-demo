@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>sessionStorage</title>
+</head>
+
+<body>
+
+  <!-- 
+    与localStorage不同，sessionStorage会在tag关闭后被清空，
+    当然window被关闭也一样
+   -->
+
+  <div id="root">
+    <button onclick="writeMsg()">存储msg</button>
+    <button onclick="readMsg()">读取msg</button>
+    <button onclick="removeMsg()">移除msg</button>
+    <button onclick="clearAll()">清空所有sessionStorage</button>
+  </div>
+  <script type="text/javascript">
+    function writeMsg() {
+      window.sessionStorage.setItem("msg", "张三");
+    }
+    function readMsg() {
+      let msg = window.sessionStorage.getItem("msg");
+      console.log(msg)
+    }
+    function removeMsg() {
+      window.sessionStorage.removeItem("msg");
+    }
+    function clearAll() {
+      console.log("clear")
+      window.sessionStorage.clear();
+    }
+  </script>
+</body>
+
+</html>

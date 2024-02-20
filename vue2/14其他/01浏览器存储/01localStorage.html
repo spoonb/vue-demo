@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>localStorage</title>
+</head>
+
+<body>
+
+  <!-- 
+    localStorage本身不会在浏览器的window或者tag关闭后被清空
+    被删除只有以下几种情况：
+    1. 调用removeItem
+    2. 调用clear
+    3. 用户清除了浏览器记录
+   -->
+
+  <div id="root">
+    <button onclick="writeMsg()">存储msg</button>
+    <button onclick="readMsg()">读取msg</button>
+    <button onclick="removeMsg()">移除msg</button>
+    <button onclick="clearAll()">清空所有localStorage</button>
+  </div>
+  <script type="text/javascript">
+    function writeMsg() {
+      window.localStorage.setItem("msg", "张三");
+    }
+    function readMsg() {
+      let msg = window.localStorage.getItem("msg");
+      console.log(msg)
+    }
+    function removeMsg() {
+      window.localStorage.removeItem("msg");
+    }
+    function clearAll() {
+      console.log("clear")
+      window.localStorage.clear();
+    }
+  </script>
+</body>
+
+</html>
