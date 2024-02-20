@@ -70,7 +70,7 @@ export default {
       }, 0);
     },
     isAll() {
-      return this.total > 0 && this.current === this.total;
+      return this.total && this.current === this.total;
     },
   },
 };
