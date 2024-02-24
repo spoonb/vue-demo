@@ -10,7 +10,7 @@
       这个特点来源于v-bind，其实所有vue的指令都有这个特点
     -->
     <School name="瞎白活IT学院" address="南京" />
-    <Student name="李四" :age="19" />
+    <Student name="李四" :age="19"/>
   </div>
 </template>
 
@@ -28,9 +28,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-/* div {
-  background-color: bisque;
-} */
-</style>
